@@ -36,6 +36,28 @@
 @media(max-width:720px){.topbar{min-height:84px}.ga-logo{width:57px;height:60px}.brand{gap:11px}.page-heading h1{font-size:28px;letter-spacing:-.8px}.page-heading h1 .title-secondary{display:block;font-size:12px;margin-top:5px}.page-heading h1 .title-join{display:none}.heading-title-build,.heading-title-cost{display:inline-block;margin-right:14px}.product-switcher{gap:10px}.product-switcher button{padding:17px 12px;gap:10px}.product-switcher strong{font-size:19px}.product-switcher small{font-size:11px}.product-switcher .product-icon{display:none}.prep-control-grid{grid-template-columns:repeat(2,minmax(0,1fr));padding:18px}.prep-control-grid label:first-child{grid-column:1/-1}.prep-metrics{grid-template-columns:1fr}.prep-inline{align-items:flex-start;flex-direction:column}.prep-scope-note{margin:0 18px 18px}.prep-table td{padding:10px}.mode-switcher{display:flex;flex-wrap:wrap}.mode-switcher button{padding:12px}.topbar .online-status{display:none}}
 @media print{.product-switcher,.product-subheading,.prep-control-grid,.prep-controls .button,.prep-inline .button,.prep-panel .campus-intro .button{display:none!important}.prep-panel[hidden]{display:none!important}.prep-metrics{grid-template-columns:repeat(3,1fr)}.prep-gantt{overflow:visible}.prep-gantt svg{min-width:0}.prep-table{min-width:0}.prep-table select{appearance:none;border:0;background:none}.prep-table input{border:0!important;background:none!important}.ga-logo{width:55px;height:58px}.prep-source{break-inside:avoid}}
 </style>
+<style id="area-pricing-style">
+/* Area pricing: automatic location factor and embedded source table. */
+.project-location-field{min-width:220px;max-width:100%}
+.project-location-field select{display:block;width:240px;max-width:100%;min-height:34px;padding:6px 28px 6px 9px;border:1px solid #cbd5c4;border-radius:6px;background:#f8faf5;color:var(--ink);font-family:inherit;font-size:12px;font-weight:600;margin-top:4px}
+.project-location-field select:focus{outline:2px solid #bd9c31;outline-offset:2px}
+.location-factor-hint{display:block;margin-top:5px;font-size:10px;line-height:1.45;color:#63765c;font-weight:400;letter-spacing:0}
+.location-warning{color:#a94e3b}.project-location-field select[aria-invalid=true]{border-color:#c88376}
+#costPriceFactor{background:#eef3e9;color:#34532e;font-weight:650;cursor:default}
+.area-reference{margin-bottom:22px}.area-reference>summary{padding:17px 21px;cursor:pointer;font-size:12px;font-weight:600;list-style:disclosure-closed;list-style-position:inside;color:var(--ink)}
+.area-reference[open]>summary{list-style-type:disclosure-open;border-bottom:1px solid var(--line)}
+.area-reference summary small{font-size:10px;font-weight:400;color:var(--muted);margin-left:8px}
+.area-current{float:right;font-size:10px;color:#48683c;background:#eef3e8;padding:3px 9px;border-radius:5px;font-weight:600;max-width:50%}
+.area-reference-body{padding:17px 21px}.area-reference-body>p{font-size:11px;line-height:1.7;color:var(--muted);margin:0 0 13px}
+.area-table-scroll{overflow:auto;max-height:330px;border:1px solid var(--line);border-radius:7px;scrollbar-width:thin}
+.area-table{width:100%;border-collapse:collapse;font-size:11px;font-variant-numeric:tabular-nums}.area-table caption{text-align:left;padding:11px 12px;font-size:10px;color:var(--muted);background:#fafbf7}
+.area-table th,.area-table td{padding:9px 12px;border-bottom:1px solid #e9eee3;line-height:1.45}.area-table thead th{position:sticky;top:0;background:#edf2e7;font-weight:600;text-align:left;color:#53654a}.area-table thead th.numeric{text-align:right}
+.area-table tbody th{font-weight:500;text-align:left}.area-table tbody tr:nth-child(even){background:#fafbf8}.area-table tbody tr.area-selected{background:#f9f3d6}.area-selected th{box-shadow:inset 3px 0 #d3b64c}.area-selected small{font-size:9px;font-weight:400;color:#897536;display:block}
+.area-reference-body>.area-source{font-size:10px;margin:12px 0 0}
+@media(min-width:701px) and (max-width:1000px){.project-strip{flex-wrap:wrap}.project-name-field{flex:1 1 240px}.project-location-field{flex:1 1 240px}.save-status{margin-left:50px}}
+@media(max-width:700px){.project-location-field{flex:1 1 100%;padding:10px 0 0;border-left:0;border-top:1px solid #d2dacb;min-width:0}.project-location-field select{width:100%}.area-reference>summary{padding:15px}.area-reference summary small{display:block;margin:5px 0 0 16px}.area-current{float:none;display:inline-block;max-width:100%;margin:8px 0 0 16px}.area-reference-body{padding:14px}.area-table th,.area-table td{padding:9px 8px;font-size:10px}}
+@media print{.area-reference{display:none}.project-location-field select{appearance:none;background:transparent;border:0;padding-left:0}.location-factor-hint{color:#444}}
+</style>
 </head>
 <body>
 <a href="#calculator" class="skip-link">Ke kalkulator</a>
@@ -50,7 +72,7 @@
     <div class="heading-actions"><button class="button secondary" id="resetBtn"><span data-icon="reset"></span>Reset</button><div class="download-wrap"><button class="button primary" id="downloadBtn" aria-expanded="false" aria-controls="downloadMenu"><span data-icon="download"></span>Simpan & unduh<span data-icon="chevron"></span></button><div class="download-menu" id="downloadMenu" hidden><button id="downloadHtml"><span data-icon="file"></span><span>HTML offline<small>Kalkulator beserta input saat ini</small></span></button><button id="exportCsv"><span data-icon="table"></span><span>Rekap CSV<small>Dapat dibuka di Excel</small></span></button><button id="saveScenario"><span data-icon="save"></span><span>Simpan skenario<small>File JSON untuk digunakan kembali</small></span></button><button id="loadScenario"><span data-icon="upload"></span><span>Buka skenario<small>Impor file JSON yang disimpan</small></span></button><button id="printBtn"><span data-icon="print"></span><span>Cetak / PDF<small>Ringkasan seluruh bangunan aktif</small></span></button></div></div></div>
   </section>
 
-  <section class="project-strip" aria-label="Informasi proyek"><span class="project-icon" data-icon="folder"></span><div class="project-name-field"><label for="projectName">NAMA PROYEK</label><input id="projectName" type="text" maxlength="100" aria-label="Nama proyek"></div><div class="project-location-field"><label for="location">LOKASI</label><input id="location" type="text" maxlength="80" aria-label="Lokasi proyek"></div><div class="save-status" id="saveStatus" role="status"><span data-icon="check"></span>Input tersimpan di perangkat ini</div></section>
+  <section class="project-strip" aria-label="Informasi proyek"><span class="project-icon" data-icon="folder"></span><div class="project-name-field"><label for="projectName">NAMA PROYEK</label><input id="projectName" type="text" maxlength="100" aria-label="Nama proyek"></div><div class="project-location-field"><label for="location">LOKASI</label><select id="location" aria-label="Lokasi proyek" aria-describedby="locationFactorHint"></select><small id="locationFactorHint" class="location-factor-hint" aria-live="polite"></small></div><div class="save-status" id="saveStatus" role="status"><span data-icon="check"></span>Input tersimpan di perangkat ini</div></section>
 
   <div class="product-switcher" role="group" aria-label="Pilih kalkulator utama"><button id="viewBuild" class="active" aria-pressed="true"><span class="product-icon" data-icon="clock"></span><span><strong>BuildCulator</strong><small>Scheduling · jadwal pelaksanaan</small></span></button><button id="viewCost" aria-pressed="false"><span class="product-icon" data-icon="table"></span><span><strong>CostCulator</strong><small>Cost · estimasi anggaran</small></span></button></div>
   <p id="scheduleSubheading" class="product-subheading">BuildCulator / Lingkup perencanaan</p>
@@ -124,7 +146,7 @@
 
   <div class="cost-calculation-grid">
     <section class="card cost-settings"><div class="section-heading"><div><h2>Pengaturan harga & biaya</h2><p>Nilai awal mengikuti asumsi yang ada pada Excel.</p></div></div><div class="cost-settings-body">
-      <div class="cost-settings-pair"><label>Faktor harga bangunan (%)<input id="costPriceFactor" type="number" min="0" step="any" data-cost-setting="priceFactor"><small>100% = harga sumber. Berlaku setelah perubahan harga satuan.</small></label><label>PPN asumsi (%)<input id="costTaxRate" type="number" min="0" step="any" data-cost-setting="taxRate"><small>Awal 11% dari Excel; sesuaikan untuk proyek Anda.</small></label></div>
+      <div class="cost-settings-pair"><label>Faktor harga bangunan (%)<input id="costPriceFactor" type="text" readonly aria-readonly="true" aria-describedby="costLocationNote"><small id="costLocationNote">Otomatis mengikuti lokasi proyek. Jakarta = 100%.</small></label><label>PPN asumsi (%)<input id="costTaxRate" type="number" min="0" step="any" data-cost-setting="taxRate"><small>Awal 11% dari Excel; sesuaikan untuk proyek Anda.</small></label></div>
       <label class="cost-field">Perhitungan persiapan<select id="costPrepMode" data-cost-setting="preparationMode"><option value="source">Per bangunan · sesuai rekap Excel</option><option value="shared">Sekali untuk kawasan</option><option value="manual">Nominal manual · sekali untuk lingkup ini</option></select></label>
       <div id="costPrepPercentFields" class="cost-settings-pair"><label>Persiapan (%)<input id="costPrepRate" type="number" min="0" step="any" data-cost-setting="preparationRate"></label><label>Pembulatan ke atas (Rp)<input id="costPrepRounding" type="number" min="0" step="any" data-cost-setting="preparationRounding"><small>Awal Rp10 juta. Isi 0 tanpa pembulatan.</small></label></div>
       <label id="costPrepManualField" class="cost-field" hidden>Nominal persiapan (Rp)<input id="costPrepManual" type="number" min="0" step="any" data-cost-setting="preparationManual"></label>
@@ -133,6 +155,14 @@
     </div></section>
     <section class="card cost-recap"><div class="section-heading"><div><h2>Rekap anggaran</h2><p id="costRecapNote">Rincian pembentuk estimasi total.</p></div></div><div id="costBreakdown" class="cost-breakdown"></div><div class="cost-composition"><h3>Komposisi biaya langsung</h3><div id="costComposition"></div></div></section>
   </div>
+
+  <details class="card area-reference" id="areaReference">
+    <summary><span>Tabel koefisien per area <small>42 lokasi · Jakarta = 100%</small></span><span id="areaCurrent" class="area-current"></span></summary>
+    <div class="area-reference-body"><p>Pilih lokasi pada identitas proyek di atas. Faktor harga diterapkan otomatis pada biaya langsung bangunan, untuk per bangunan maupun kawasan.</p>
+      <div class="area-table-scroll" tabindex="0" role="region" aria-label="Tabel koefisien 42 lokasi"><table class="area-table"><caption>Koefisien harga bangunan relatif terhadap Jakarta</caption><thead><tr><th scope="col">Lokasi</th><th scope="col" class="numeric">Koefisien</th><th scope="col" class="numeric">Faktor harga</th></tr></thead><tbody id="areaCoefficientRows"></tbody></table></div>
+      <p class="area-source">Sumber: <b>Tabel Koefisien Per Area.xlsx</b> · Sheet1!B3:AQ4. Koefisien ditampilkan hingga 6 desimal dan faktor hingga 4 desimal; perhitungan memakai presisi asli Excel.</p>
+    </div>
+  </details>
 
   <section class="card cost-section"><div class="section-heading"><div><h2>Pekerjaan tambahan <span id="costExtrasBadge" class="count-badge">0</span></h2><p id="costExtrasNote">Tambahkan item yang belum tercakup dalam model bangunan.</p></div><button class="button secondary" id="costAddExtra">+ Tambah pekerjaan</button></div><div class="table-scroll"><table class="cost-extra-table"><thead><tr><th>Gunakan</th><th>Pekerjaan</th><th>Volume</th><th>Satuan</th><th>Harga satuan (Rp)</th><th class="numeric">Jumlah (Rp)</th><th></th></tr></thead><tbody id="costExtraRows"></tbody></table></div><p class="cost-table-note">Pada kawasan, isi pekerjaan bersama satu kali. Jangan masukkan kembali item yang sudah dihitung pada RAB bangunan. Pekerjaan tambahan dari jadwal kawasan perlu diisi harganya atau dinonaktifkan jika di luar lingkup biaya.</p></section>
 
@@ -143,7 +173,7 @@
     <div class="table-footer cost-pagination"><span id="costDetailCount"></span><div><button class="button secondary" id="costPrev">Sebelumnya</button><span id="costPage"></span><button class="button secondary" id="costNext">Berikutnya</button></div></div>
     <p class="cost-table-note">Jumlah = volume × harga satuan × faktor harga. Kolom volume menampilkan angka hingga 6 desimal; perhitungan otomatis memakai presisi penuh. Item “Include” pada Excel bernilai tambahan Rp0.</p>
   </section>
-  <details class="card cost-method"><summary>Dasar perhitungan, sumber harga, dan pemeriksaan RAB</summary><div class="cost-method-body"><ol><li>Luas total = panjang × lebar × jumlah lantai. Volume setiap item mengikuti rumus rasio luas pada file tipenya; item dengan volume tetap tetap dihitung sesuai sumber.</li><li>Harga satuan awal merupakan nilai numerik yang tersimpan pada Excel yang dikirim, termasuk harga dari link eksternal. Lokasi pada identitas proyek tidak otomatis mengganti harga. Gunakan faktor harga atau edit harga satuan untuk penyesuaian.</li><li>Persiapan awal mengikuti rumus Rekap Akhir: 7% dari biaya langsung bangunan, dibulatkan ke atas per Rp10 juta. Opsi sekali untuk kawasan dan nominal manual adalah skenario yang dapat dipilih.</li><li>Subtotal = biaya langsung + persiapan + pekerjaan tambahan. Cadangan = subtotal × persentase cadangan. PPN asumsi = (subtotal + cadangan) × persentase PPN. Total = subtotal + cadangan + PPN. Tidak ada penambahan PPh lagi di atas harga sumber.</li><li>Biaya tiap bangunan dijumlahkan karena seluruh volumenya tetap dikerjakan. Overlap jadwal atau perubahan jumlah tim tidak otomatis mengurangi biaya. Biaya terkait durasi, alat, atau mobilisasi bersama dapat diisi sebagai pekerjaan tambahan.</li><li>Model ini adalah estimasi parametrik berdasarkan tipologi sumber. Perubahan jumlah lantai mengalikan luas; tidak otomatis merancang ulang pondasi atau struktur. Tinjau ulang kecocokan lingkup untuk dimensi atau spesifikasi yang berbeda.</li></ol><div id="costAudit"></div></div></details>
+  <details class="card cost-method"><summary>Dasar perhitungan, sumber harga, dan pemeriksaan RAB</summary><div class="cost-method-body"><ol><li>Luas total = panjang × lebar × jumlah lantai. Volume setiap item mengikuti rumus rasio luas pada file tipenya; item dengan volume tetap tetap dihitung sesuai sumber.</li><li>Harga satuan awal merupakan nilai numerik yang tersimpan pada Excel yang dikirim, termasuk harga dari link eksternal. Faktor harga otomatis mengikuti lokasi proyek dari Tabel Koefisien Per Area.xlsx, dengan Jakarta = 100%. Harga satuan dasar (termasuk yang diedit) dikalikan koefisien lokasi satu kali. Perhitungan menggunakan presisi asli Excel; faktor pada tampilan dibulatkan hingga 4 desimal.</li><li>Persiapan awal mengikuti rumus Rekap Akhir: 7% dari biaya langsung bangunan, dibulatkan ke atas per Rp10 juta. Opsi sekali untuk kawasan dan nominal manual adalah skenario yang dapat dipilih.</li><li>Subtotal = biaya langsung + persiapan + pekerjaan tambahan. Cadangan = subtotal × persentase cadangan. PPN asumsi = (subtotal + cadangan) × persentase PPN. Total = subtotal + cadangan + PPN. Tidak ada penambahan PPh lagi di atas harga sumber.</li><li>Biaya tiap bangunan dijumlahkan karena seluruh volumenya tetap dikerjakan. Overlap jadwal atau perubahan jumlah tim tidak otomatis mengurangi biaya. Biaya terkait durasi, alat, atau mobilisasi bersama dapat diisi sebagai pekerjaan tambahan.</li><li>Model ini adalah estimasi parametrik berdasarkan tipologi sumber. Perubahan jumlah lantai mengalikan luas; tidak otomatis merancang ulang pondasi atau struktur. Tinjau ulang kecocokan lingkup untuk dimensi atau spesifikasi yang berbeda.</li></ol><div id="costAudit"></div></div></details>
 </section>
 
   <div id="singlePanel"><div class="prep-inline"><div><strong>Persiapan proyek</strong><br><span id="singlePrepNote"></span></div><button class="button secondary" data-open-preparation>Atur pekerjaan persiapan</button></div>
@@ -252,6 +282,7 @@ const ScheduleCore = (() => {
     output.preparation=PreparationCore.parse(value.preparation);
     if(value.campus)output.campus=CampusCore.parse(value.campus,models);
     output.cost=CostCore.parse(value.cost,models);
+    AreaPriceCore.sync(output);
     return output;
   }
   return {COLORS,CATEGORY,CATEGORY_LABEL,SHORT_NAME,numeric,validate,calculate,summary,defaults,validateScenario};
@@ -620,6 +651,25 @@ const PreparationCore=(()=>{
   }
   return {SOURCE,NAMES,DURATIONS,defaults,parse,calculate};
 })();
+
+// Location coefficients supplied in Tabel Koefisien Per Area.xlsx, Sheet1!B3:AQ4.
+const AreaPriceCore=(()=>{
+  const SOURCE='Tabel Koefisien Per Area.xlsx';
+  const sourceRows=[{"name":"Jakarta","coefficient":1.0,"nameCell":"B3","coefficientCell":"B4"},{"name":"Balikpapan","coefficient":1.1966072826213423,"nameCell":"C3","coefficientCell":"C4"},{"name":"Banjarmasin","coefficient":1.1889130843480997,"nameCell":"D3","coefficientCell":"D4"},{"name":"Pekanbaru","coefficient":1.1545153258109888,"nameCell":"E3","coefficientCell":"E4"},{"name":"Samarinda","coefficient":1.2233774132330133,"nameCell":"F3","coefficientCell":"F4"},{"name":"Surabaya","coefficient":1.0609827282710167,"nameCell":"G3","coefficientCell":"G4"},{"name":"Ujung Pandang","coefficient":1.1540966662122074,"nameCell":"H3","coefficientCell":"H4"},{"name":"Manado","coefficient":1.2030663666984227,"nameCell":"I3","coefficientCell":"I4"},{"name":"Medan","coefficient":1.1782745999403432,"nameCell":"J3","coefficientCell":"J4"},{"name":"Palembang","coefficient":1.1199137394169456,"nameCell":"K3","coefficientCell":"K4"},{"name":"Pontianak","coefficient":1.1621281065570992,"nameCell":"L3","coefficientCell":"L4"},{"name":"Sampit","coefficient":1.1786324681595661,"nameCell":"M3","coefficientCell":"M4"},{"name":"Semarang","coefficient":1.0597582708008788,"nameCell":"N3","coefficientCell":"N4"},{"name":"Sorong","coefficient":1.4216415299075418,"nameCell":"O3","coefficientCell":"O4"},{"name":"Tarakan","coefficient":1.2503723064348669,"nameCell":"P3","coefficientCell":"P4"},{"name":"Jambi","coefficient":1.1565615504615774,"nameCell":"Q3","coefficientCell":"Q4"},{"name":"Jayapura","coefficient":1.4410046433038495,"nameCell":"R3","coefficientCell":"R4"},{"name":"Bandar Lampung","coefficient":1.101667208247983,"nameCell":"S3","coefficientCell":"S4"},{"name":"Kota Padang","coefficient":1.1429516874990053,"nameCell":"T3","coefficientCell":"T4"},{"name":"Palu","coefficient":1.2047253268368328,"nameCell":"U3","coefficientCell":"U4"},{"name":"Adaro Tanjung","coefficient":1.329426133862074,"nameCell":"V3","coefficientCell":"V4"},{"name":"Batukajang","coefficient":1.3270616977591745,"nameCell":"W3","coefficientCell":"W4"},{"name":"Bengalon","coefficient":1.4001000645884885,"nameCell":"X3","coefficientCell":"X4"},{"name":"Sangatta","coefficient":1.354442196825167,"nameCell":"Y3","coefficientCell":"Y4"},{"name":"Satui","coefficient":1.3111872857752862,"nameCell":"Z3","coefficientCell":"Z4"},{"name":"Tanjung Redeb","coefficient":1.6010524640136035,"nameCell":"AA3","coefficientCell":"AA4"},{"name":"Adaro","coefficient":1.329426133862074,"nameCell":"AB3","coefficientCell":"AB4"},{"name":"Bendili","coefficient":1.354442196825167,"nameCell":"AC3","coefficientCell":"AC4"},{"name":"Binungan","coefficient":1.5925557045120136,"nameCell":"AD3","coefficientCell":"AD4"},{"name":"Bontang","coefficient":1.3123176035721782,"nameCell":"AE3","coefficientCell":"AE4"},{"name":"Freeport","coefficient":1.6205422167662238,"nameCell":"AF3","coefficientCell":"AF4"},{"name":"Muara Lawa","coefficient":1.4282204328960149,"nameCell":"AG3","coefficientCell":"AG4"},{"name":"Tabang","coefficient":1.4208256083217867,"nameCell":"AH3","coefficientCell":"AH4"},{"name":"Tanjung Enim","coefficient":1.263309911980395,"nameCell":"AI3","coefficientCell":"AI4"},{"name":"Tenggarong","coefficient":1.253185008828828,"nameCell":"AJ3","coefficientCell":"AJ4"},{"name":"Buhut","coefficient":1.5459203284780199,"nameCell":"AK3","coefficientCell":"AK4"},{"name":"Loajanan Sanga","coefficient":1.2563089444306812,"nameCell":"AL3","coefficientCell":"AL4"},{"name":"Loreh","coefficient":1.7919164505441558,"nameCell":"AM3","coefficientCell":"AM4"},{"name":"Rantau","coefficient":1.2554781967055197,"nameCell":"AN3","coefficientCell":"AN4"},{"name":"Soroako","coefficient":1.578861394271954,"nameCell":"AO3","coefficientCell":"AO4"},{"name":"Sumbawa","coefficient":1.5790217220675447,"nameCell":"AP3","coefficientCell":"AP4"},{"name":"Tuhup","coefficient":1.6515875390165478,"nameCell":"AQ3","coefficientCell":"AQ4"}];
+  const baseline=sourceRows.find(row=>row.name==='Jakarta').coefficient;
+  const rows=Object.freeze(sourceRows.map(row=>Object.freeze({...row,percent:row.coefficient/baseline*100})));
+  const normalize=value=>typeof value==='string'?value.trim().replace(/\s+/g,' ').toLowerCase():'';
+  const byName=new Map(rows.map(row=>[normalize(row.name),row]));
+  const find=name=>byName.get(normalize(name))||null;
+  function sync(state){
+    const area=find(state.location);
+    if(!state.cost)state.cost=CostCore.defaults();
+    if(area)state.location=area.name;
+    state.cost.priceFactor=area?area.percent:'';
+    return area;
+  }
+  return {SOURCE,rows,find,sync};
+})();
 </script>
 <script id="app-script">'use strict';
 (() => {
@@ -729,6 +779,7 @@ function safeFilename(ext){return (state.projectName.trim()||'Schedule-Calculato
 function download(blob,filename){const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=filename;document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);closeDownload();}
 function closeDownload(){$('downloadMenu').hidden=true;$('downloadBtn').setAttribute('aria-expanded','false');}
 function exportHtml(){
+  AreaPriceCore.sync(state);
   const clone=document.documentElement.cloneNode(true);
   const exportState=structuredClone(state);exportState.storageId='offline-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,8);
   clone.querySelector('#initial-state').textContent=JSON.stringify(exportState).replace(/</g,'\\u003c');
@@ -749,14 +800,22 @@ function exportCsv(){
   lines.push([],['Total luas (m²)',csvNum(s.area)],['Durasi terlama (hari)',csvNum(s.longest.days),s.longest.model.name],['Catatan','Durasi terlama adalah pembanding antarbangunan, bukan jadwal proyek berbasis dependensi.']);
   download(new Blob(['\uFEFF'+lines.map(r=>r.map(csvCell).join(';')).join('\r\n')],{type:'text/csv;charset=utf-8'}),safeFilename('csv'));notify('Rekap CSV berhasil diunduh.');
 }
-function saveScenario(){const scenario={...state,exportedAt:new Date().toISOString()};download(new Blob([JSON.stringify(scenario,null,2)],{type:'application/json'}),safeFilename('json'));notify('Skenario disimpan. Gunakan Buka skenario untuk memuatnya kembali.');}
+function saveScenario(){AreaPriceCore.sync(state);const scenario={...state,exportedAt:new Date().toISOString()};download(new Blob([JSON.stringify(scenario,null,2)],{type:'application/json'}),safeFilename('json'));notify('Skenario disimpan. Gunakan Buka skenario untuk memuatnya kembali.');}
 async function loadScenario(file){
   if(!file)return;if(file.size>5000000){notify('File terlalu besar. Gunakan file skenario JSON dari kalkulator ini.');return;}
   try{const parsed=JSON.parse(await file.text());const clean=C.validateScenario(parsed,models,{allowIncomplete:true});state=clean;syncProject();renderRows();ensureCampus();renderCampus();setView(state.view||'single');save();notify('Skenario berhasil dibuka.');}
   catch(e){notify(e instanceof SyntaxError?'File JSON tidak dapat dibaca. Pilih file skenario yang valid.':e.message||'Skenario tidak dapat dibuka.');}
   finally{$('scenarioFile').value='';}
 }
-function syncProject(){$('projectName').value=state.projectName;$('location').value=state.location;}
+function syncProject(){
+  $('projectName').value=state.projectName;
+  const area=AreaPriceCore.sync(state);
+  $('location').innerHTML=(area?'':'<option value="" disabled>Pilih lokasi dari tabel Excel</option>')+AreaPriceCore.rows.map(row=>`<option value="${esc(row.name)}">${esc(row.name)}</option>`).join('');
+  $('location').value=area?area.name:'';
+  $('location').setAttribute('aria-invalid',String(!area));
+  $('locationFactorHint').textContent=area?`Faktor harga ${costNum(area.percent,4)}% · Jakarta = 100%`:state.location?`Lokasi lama “${state.location}” belum ada di tabel. Pilih lokasi untuk menghitung biaya.`:'Pilih lokasi untuk menghitung biaya.';
+  $('locationFactorHint').classList.toggle('location-warning',!area);
+}
 function renderMethod(id){
   const m=getModel(id),row=state.rows[id],r=C.calculate(m,row,state.preparation),base=C.calculate(m,m);
   const activeParts=r.valid?r.parts:m.parts;const slope=activeParts.reduce((s,p)=>s+p.slope,0),fixed=activeParts.reduce((s,p)=>s+p.fixed,0);
@@ -788,7 +847,7 @@ document.querySelectorAll('[data-filter]').forEach(btn=>btn.addEventListener('cl
 $('searchInput').addEventListener('input',e=>{search=e.target.value.trim().toLowerCase();applyFilters();});
 $('clearFilters').addEventListener('click',()=>{$('searchInput').value='';search='';document.querySelector('[data-filter="all"]').click();});
 $('projectName').addEventListener('input',e=>{state.projectName=e.target.value;scheduleSave();});
-$('location').addEventListener('input',e=>{state.location=e.target.value;scheduleSave();});
+$('location').addEventListener('change',e=>{state.location=e.target.value;syncProject();renderCost();save();});
 $('downloadBtn').addEventListener('click',()=>{const open=$('downloadMenu').hidden;$('downloadMenu').hidden=!open;$('downloadBtn').setAttribute('aria-expanded',String(open));});
 document.addEventListener('click',e=>{if(!e.target.closest('.download-wrap'))closeDownload();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDownload();});
@@ -975,12 +1034,18 @@ let costResult=null,costPage=0,costGroup='all',costSearch='',costPrinting=false;
 const money=v=>v===null||!Number.isFinite(v)?'—':'Rp '+new Intl.NumberFormat('id-ID',{maximumFractionDigits:0}).format(v);
 const costNum=(v,d=2)=>Number.isFinite(v)?new Intl.NumberFormat('id-ID',{maximumFractionDigits:d}).format(v):'—';
 const costColors={structure:'#2b4b3d',architecture:'#7d9a7e',mep:'#d0b248',provisional:'#b2bdb0',variation:'#90a5a2'};
-function ensureCost(){if(!state.cost)state.cost=Q.defaults();if(!getModel(state.cost.selected))state.cost.selected=state.selected;}
+function ensureCost(){if(!state.cost)state.cost=Q.defaults();if(!getModel(state.cost.selected))state.cost.selected=state.selected;AreaPriceCore.sync(state);}
 function costInput(value,attrs=''){return `<input value="${esc(value??'')}" ${attrs}>`;}
 function costSelectedUnit(){return costResult?.units.find(u=>u.id===state.cost.detailUnit)||costResult?.units[0];}
 function costRenderSettings(){
   const cfg=state.cost;
-  for(const [id,key]of [['costPriceFactor','priceFactor'],['costTaxRate','taxRate'],['costPrepMode','preparationMode'],['costPrepRate','preparationRate'],['costPrepRounding','preparationRounding'],['costPrepManual','preparationManual'],['costContingency','contingencyRate']])$(id).value=cfg[key];
+  for(const [id,key]of [['costTaxRate','taxRate'],['costPrepMode','preparationMode'],['costPrepRate','preparationRate'],['costPrepRounding','preparationRounding'],['costPrepManual','preparationManual'],['costContingency','contingencyRate']])$(id).value=cfg[key];
+  const area=AreaPriceCore.find(state.location);
+  $('costPriceFactor').value=area?costNum(cfg.priceFactor,4):'—';
+  $('costPriceFactor').setAttribute('aria-invalid',String(!area));
+  $('costLocationNote').textContent=area?`Otomatis: ${area.name}. Jakarta = 100%. Berlaku untuk seluruh bangunan dalam lingkup terpilih.`:'Pilih lokasi proyek dari dropdown di atas untuk menentukan faktor harga.';
+  $('areaCurrent').textContent=area?`${area.name} · ${costNum(area.percent,4)}%`:'Lokasi belum dipilih';
+  $('areaCoefficientRows').innerHTML=AreaPriceCore.rows.map(row=>`<tr${row.name===area?.name?' class="area-selected" aria-current="true"':''}><th scope="row">${esc(row.name)}${row.name===area?.name?'<small>Lokasi terpilih</small>':''}</th><td class="numeric" title="${row.coefficient}">${costNum(row.coefficient,6)}</td><td class="numeric" title="${row.percent}%">${costNum(row.percent,4)}%</td></tr>`).join('');
   $('costPrepPercentFields').hidden=cfg.preparationMode==='manual';$('costPrepManualField').hidden=cfg.preparationMode!=='manual';
 }
 function costRenderSummary(){
@@ -1015,7 +1080,7 @@ function costRenderDetails(){
   const all=u.items.filter(i=>(costGroup==='all'||costGroup===i.group||costGroup==='edited'&&(i.priceOverride||i.quantityOverride||!i.enabled))&&(!costSearch||(i.name+' '+i.subgroup+' '+i.spec).toLowerCase().includes(costSearch)));
   const pageSize=60,pages=Math.max(1,Math.ceil(all.length/pageSize));costPage=Math.max(0,Math.min(costPage,pages-1));
   const page=costPrinting?all:all.slice(costPage*pageSize,(costPage+1)*pageSize);
-  $('costDetailRows').innerHTML=page.map(i=>`<tr data-cost-item="${i.id}" class="${i.enabled?'':'cost-disabled'}"><td><input type="checkbox" data-cost-item-field="enabled" ${i.enabled?'checked':''} aria-label="Gunakan ${esc(i.name)}"></td><td><small>${esc(Q.GROUPS[i.group])} · ${esc(i.subgroup)}</small><span class="cost-item-name">${esc(i.name)}</span><details><summary>Spesifikasi & sumber</summary><p>${esc(i.spec||'Mengikuti spesifikasi sumber.')}<br>${esc(i.sheet)}!${i.quantityCell} (volume), ${i.priceCell} (harga), ${i.amountCell} (jumlah).<br>${i.included?'Include pada Excel: tanpa biaya tambahan.':i.externalPrice?'Harga terakhir tersimpan dari tautan eksternal.':'Harga satuan tersimpan pada Excel.'}<br>Volume otomatis: ${i.quantityFixed?costNum(i.quantityFixed,6)+' + ':''}luas × ${costNum(i.quantitySlope,10)}.</p></details></td><td>${costInput(i.quantityOverride?state.cost.quantities[i.itemKey]:i.quantity===null?'':Number(i.quantity.toFixed(6)),`type="number" min="0" step="any" data-cost-item-field="quantity" aria-label="Volume ${esc(i.name)}" aria-invalid="${i.enabled&&(!Number.isFinite(i.quantity)||i.quantity<0)}"`)}<small class="${i.quantityOverride?'cost-edited':''}">${i.quantityOverride?'Volume manual':'Volume otomatis'}</small></td><td>${esc(i.unit)}</td><td>${costInput(i.priceOverride?state.cost.prices[i.priceKey]:i.price,`type="number" min="0" step="any" data-cost-item-field="price" aria-label="Harga ${esc(i.name)}" aria-invalid="${i.enabled&&(!Number.isFinite(i.price)||i.price<0)}"`)}<small class="${i.priceOverride?'cost-edited':''}">${i.priceOverride?'Harga diubah untuk tipe ini':i.included?'Include · tambahan Rp0':'Harga sumber'}</small></td><td class="numeric">${money(i.amount)}${Number(state.cost.priceFactor)!==100?`<small>Faktor ${costNum(C.numeric(state.cost.priceFactor))}%</small>`:''}</td><td>${i.priceOverride||i.quantityOverride||!i.enabled?'<button class="cost-action" data-cost-item-reset>Pulihkan</button>':''}</td></tr>`).join('')||`<tr><td colspan="7" class="campus-empty">${u.valid?'Tidak ada item sesuai filter.':'Perbaiki dimensi bangunan untuk melihat volume dan harga.'}</td></tr>`;
+  $('costDetailRows').innerHTML=page.map(i=>`<tr data-cost-item="${i.id}" class="${i.enabled?'':'cost-disabled'}"><td><input type="checkbox" data-cost-item-field="enabled" ${i.enabled?'checked':''} aria-label="Gunakan ${esc(i.name)}"></td><td><small>${esc(Q.GROUPS[i.group])} · ${esc(i.subgroup)}</small><span class="cost-item-name">${esc(i.name)}</span><details><summary>Spesifikasi & sumber</summary><p>${esc(i.spec||'Mengikuti spesifikasi sumber.')}<br>${esc(i.sheet)}!${i.quantityCell} (volume), ${i.priceCell} (harga), ${i.amountCell} (jumlah).<br>${i.included?'Include pada Excel: tanpa biaya tambahan.':i.externalPrice?'Harga terakhir tersimpan dari tautan eksternal.':'Harga satuan tersimpan pada Excel.'}<br>Volume otomatis: ${i.quantityFixed?costNum(i.quantityFixed,6)+' + ':''}luas × ${costNum(i.quantitySlope,10)}.</p></details></td><td>${costInput(i.quantityOverride?state.cost.quantities[i.itemKey]:i.quantity===null?'':Number(i.quantity.toFixed(6)),`type="number" min="0" step="any" data-cost-item-field="quantity" aria-label="Volume ${esc(i.name)}" aria-invalid="${i.enabled&&(!Number.isFinite(i.quantity)||i.quantity<0)}"`)}<small class="${i.quantityOverride?'cost-edited':''}">${i.quantityOverride?'Volume manual':'Volume otomatis'}</small></td><td>${esc(i.unit)}</td><td>${costInput(i.priceOverride?state.cost.prices[i.priceKey]:i.price,`type="number" min="0" step="any" data-cost-item-field="price" aria-label="Harga ${esc(i.name)}" aria-invalid="${i.enabled&&(!Number.isFinite(i.price)||i.price<0)}"`)}<small class="${i.priceOverride?'cost-edited':''}">${i.priceOverride?'Harga diubah untuk tipe ini':i.included?'Include · tambahan Rp0':'Harga sumber'}</small></td><td class="numeric">${money(i.amount)}${Number(state.cost.priceFactor)!==100?`<small>Faktor ${costNum(C.numeric(state.cost.priceFactor),4)}%</small>`:''}</td><td>${i.priceOverride||i.quantityOverride||!i.enabled?'<button class="cost-action" data-cost-item-reset>Pulihkan</button>':''}</td></tr>`).join('')||`<tr><td colspan="7" class="campus-empty">${u.valid?'Tidak ada item sesuai filter.':'Lengkapi lokasi dan input bangunan untuk melihat volume dan harga.'}</td></tr>`;
   $('costDetailCount').textContent=costPrinting?`${all.length} item`:`${all.length?costPage*pageSize+1:0}–${Math.min((costPage+1)*pageSize,all.length)} dari ${all.length} item`;
   $('costPage').textContent=`${costPage+1} / ${pages}`;$('costPrev').disabled=costPage===0;$('costNext').disabled=costPage>=pages-1;
   const a=u.costModel.checks.filter(x=>x.sourceTotals.length);
@@ -1024,6 +1089,7 @@ function costRenderDetails(){
 function renderCost(){
   ensureCost();ensureCampus();const cfg=state.cost,campus=cfg.scope==='campus';
   costResult=Q.calculate(models,costModels,state.rows,state.campus,cfg);
+  if(!AreaPriceCore.find(state.location))costResult.errors=['Pilih lokasi proyek dari tabel Excel untuk menghitung faktor harga bangunan.'];
   $('costScopeSingle').classList.toggle('active',!campus);$('costScopeCampus').classList.toggle('active',campus);$('costScopeSingle').setAttribute('aria-pressed',String(!campus));$('costScopeCampus').setAttribute('aria-pressed',String(campus));
   $('costScopeNote').textContent=campus?'Menghitung seluruh unit aktif dari jadwal kawasan.':'Menghitung satu tipe yang dipilih, termasuk jika belum aktif pada ringkasan jadwal.';
   $('costScopeBadge').textContent=campus?'KAWASAN':'PER BANGUNAN';$('costSingleInputs').hidden=campus;$('costCampusIntro').hidden=!campus;$('costCampusRoster').hidden=!campus;
@@ -1040,12 +1106,12 @@ function costAddUnit(typeId){
 }
 function exportCostCsv(){
   renderCost();const r=costResult;if(!r.valid){notify('Lengkapi input biaya sebelum mengunduh RAB.');return;}
-  const cfg=state.cost,lines=[['CostCulator — GA Project Management'],['Nama proyek',state.projectName],['Lokasi proyek (tidak otomatis mengubah harga)',state.location],['Lingkup',cfg.scope==='campus'?'Kawasan':'Per bangunan'],['Faktor harga bangunan (%)',csvNum(C.numeric(cfg.priceFactor))],['Persiapan',cfg.preparationMode,'Persen',cfg.preparationRate,'Pembulatan (Rp)',cfg.preparationRounding],['PPN asumsi (%)',cfg.taxRate],['Cadangan (%)',cfg.contingencyRate],[],['Unit','Tipe','Panjang (m)','Lebar (m)','Lantai','Luas (m²)','Biaya langsung (Rp)','Persiapan / alokasi (Rp)']];
+  const cfg=state.cost,lines=[['CostCulator — GA Project Management'],['Nama proyek',state.projectName],['Lokasi proyek',state.location],['Sumber koefisien lokasi',AreaPriceCore.SOURCE+' · Sheet1!B3:AQ4'],['Acuan harga','Jakarta = 100%'],['Lingkup',cfg.scope==='campus'?'Kawasan':'Per bangunan'],['Faktor harga bangunan (%)',csvNum(C.numeric(cfg.priceFactor))],['Persiapan',cfg.preparationMode,'Persen',cfg.preparationRate,'Pembulatan (Rp)',cfg.preparationRounding],['PPN asumsi (%)',cfg.taxRate],['Cadangan (%)',cfg.contingencyRate],[],['Unit','Tipe','Panjang (m)','Lebar (m)','Lantai','Luas (m²)','Biaya langsung (Rp)','Persiapan / alokasi (Rp)']];
   for(const u of r.units)lines.push([u.name,u.model.name,u.dimensions.length,u.dimensions.width,u.dimensions.floors,csvNum(u.area),csvNum(u.direct),csvNum(u.preparationAllocation)]);
   lines.push([],['Biaya langsung',csvNum(r.direct)],['Persiapan',csvNum(r.preparation)],['Tambahan',csvNum(r.extraTotal)],['Subtotal sebelum cadangan & PPN',csvNum(r.subtotal)],['Cadangan',csvNum(r.contingency)],['PPN asumsi',csvNum(r.tax)],['TOTAL',csvNum(r.total)],['Total luas (m²)',csvNum(r.area)],['Biaya per m² termasuk tambahan, cadangan & PPN',csvNum(r.perM2)],[],['Unit','Bidang','Pekerjaan','Spesifikasi','Dihitung','Volume','Satuan','Harga satuan dasar (Rp)','Faktor harga (%)','Harga efektif (Rp)','Jumlah (Rp)','Volume manual','Harga diubah','File sumber','Sheet','Sel volume','Sel harga']);
   for(const u of r.units){for(const i of u.items)lines.push([u.name,Q.GROUPS[i.group],i.name,i.spec,i.enabled?'Ya':'Tidak',csvNum(i.quantity),i.unit,csvNum(i.price),cfg.priceFactor,csvNum(i.effectivePrice),csvNum(i.amount),i.quantityOverride?'Ya':'Tidak',i.priceOverride?'Ya':'Tidak',u.model.file,i.sheet,i.quantityCell,i.priceCell]);for(const w of u.costModel.warnings)lines.push(['Catatan '+u.name,w]);}
   lines.push([],['PEKERJAAN TAMBAHAN','Pekerjaan','Dihitung','Volume','Satuan','Harga satuan (Rp)','Jumlah (Rp)']);for(const e of r.extras)lines.push([e.origin==='schedule'?'Dari jadwal':'Manual',e.name,e.enabled?'Ya':'Tidak',e.quantity,e.unit,e.price,csvNum(e.amount)]);
-  lines.push([],['Metode','Volume mengikuti rumus luas sumber. Harga tersimpan Excel. Persiapan persen hanya dari biaya langsung bangunan. Tambahan manual tidak dikenai faktor harga. Cadangan dari subtotal, PPN dari subtotal + cadangan. Alokasi persiapan bersama proporsional biaya langsung; tidak ditambahkan dua kali.'],['Batas model','Luas = P x L x lantai. Tidak merancang ulang struktur; tidak menilai harga pasar terkini. Overlap jadwal dan perubahan jumlah tim tidak otomatis mengurangi biaya.']);
+  lines.push([],['Metode','Volume mengikuti rumus luas sumber. Harga bangunan dikalikan koefisien lokasi dari Tabel Koefisien Per Area.xlsx (Jakarta = 100%). Persiapan persen hanya dari biaya langsung bangunan. Tambahan manual tidak dikenai faktor harga. Cadangan dari subtotal, PPN dari subtotal + cadangan. Alokasi persiapan bersama proporsional biaya langsung; tidak ditambahkan dua kali.'],['Batas model','Luas = P x L x lantai. Tidak merancang ulang struktur; tidak menilai harga pasar terkini. Overlap jadwal dan perubahan jumlah tim tidak otomatis mengurangi biaya.']);
   download(new Blob(['\uFEFF'+lines.map(row=>row.map(csvCell).join(';')).join('\r\n')],{type:'text/csv;charset=utf-8'}),'RAB-'+safeFilename('csv'));notify('Rekap dan seluruh item RAB berhasil diunduh.');
 }
 function setupCost(){
